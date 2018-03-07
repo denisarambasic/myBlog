@@ -2,7 +2,7 @@
 
 namespace MyBlog\Models;
 
-class Article
+class Article extends BaseModel
 {
 	private $id;
 	private $title;

@@ -2,7 +2,7 @@
 
 namespace MyBlog\Models;
 
-class User
+class User extends BaseModel
 {
 	private $id;
 	private $email;
