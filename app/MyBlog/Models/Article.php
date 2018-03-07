@@ -10,6 +10,16 @@ class Article extends BaseModel
 	private $created_at;
 	private $user_id;
 	
+	/*=== GET THE LAST 3 Articles ===*/
+	public function getLast3()
+	{
+		$query = "SELECT articles.title, articles.content, articles.created_at, users.email FROM articles
+					INNER JOIN users ON users.id = articles.user_id ORDER BY articles.created_at DESC LIMIT 3";
+		$stmt = $this->getConnection()->prepare($query);
+		$stmt->execute();
+		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	}
+	
 	/*=== Getter for Id ===*/
 	public function getId()
 	{
