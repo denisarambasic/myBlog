@@ -2,10 +2,21 @@
 
 namespace MyBlog\Controllers;
 
+use MyBlog\Models\Article;
+
 class HomepageController
 {
 	public function index()
 	{
-		echo 'Test';
+		
+		$article = new Article();
+		$articles = $article->getLast3();
+		
+		$response = ['articles' => $articles];
+		
+		http_response_code(200);
+		header('Content-type: application/json');
+		echo json_encode($response);
+		
 	}
 }
