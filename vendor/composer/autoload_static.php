@@ -11,12 +11,28 @@ class ComposerStaticInit3f0398cfb1c67ca6c966b4933b7a6fc3
         array (
             'MyBlog\\' => 7,
         ),
+        'F' => 
+        array (
+            'Firebase\\JWT\\' => 13,
+        ),
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'MyBlog\\' => 
         array (
             0 => __DIR__ . '/../..' . '/app/MyBlog',
+        ),
+        'Firebase\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
+        ),
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
     );
 

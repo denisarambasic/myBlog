@@ -12,7 +12,7 @@ class User extends BaseModel
 	/*=== Add a new user ===*/
 	public function registerUser($email, $password)
 	{
-		$query = "INSERT INTO users VALUES (NULL, :email, :pasword, NOW())";
+		$query = "INSERT INTO users VALUES (NULL, :email, :password, NOW())";
 		$stmt = $this->getConnection()->prepare($query);
 		$stmt->bindParam('email', $email);
 		$stmt->bindParam('password', $password);

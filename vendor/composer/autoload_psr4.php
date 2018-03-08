@@ -7,4 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'MyBlog\\' => array($baseDir . '/app/MyBlog'),
+    'Firebase\\JWT\\' => array($vendorDir . '/firebase/php-jwt/src'),
+    'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
 );

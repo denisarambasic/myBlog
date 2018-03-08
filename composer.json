@@ -3,5 +3,9 @@
 		"psr-4": {
 			"MyBlog\\": "app/MyBlog"
 		} 
+	},
+	"require": {
+		"firebase/php-jwt": "^5.0",
+		"vlucas/phpdotenv": "^2.4"
 	}
 }
