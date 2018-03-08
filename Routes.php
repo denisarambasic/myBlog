@@ -16,6 +16,7 @@ $routes->setRoute('POST', '/register', 'RegisterController', 'formData', []);
 
 /*=== Login routes ===*/
 $routes->setRoute('GET', '/login', 'LoginController', 'index', []);
+$routes->setRoute('POST', '/login', 'LoginController', 'formData', []);
 
 /*=== Call the controller if the request match an existing route ===*/
 $routes->callController();
