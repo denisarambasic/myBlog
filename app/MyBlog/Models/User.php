@@ -9,6 +9,16 @@ class User extends BaseModel
 	private $password;
 	private $created_at;
 	
+	/*=== Get user by email ===*/
+	public function getUserByEmail($email)
+	{
+		$query = "SELECT * FROM users WHERE email = :email";
+		$stmt = $this->getConnection()->prepare($query);
+		$stmt->bindParam('email', $email);
+		$stmt->execute();
+		return $stmt->fetch(\PDO::FETCH_ASSOC);
+	}
+	
 	/*=== Getter for Id ===*/
 	public function getId()
 	{
