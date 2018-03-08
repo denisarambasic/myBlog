@@ -9,6 +9,16 @@ class User extends BaseModel
 	private $password;
 	private $created_at;
 	
+	/*=== Add a new user ===*/
+	public function registerUser($email, $password)
+	{
+		$query = "INSERT INTO users VALUES (NULL, :email, :pasword, NOW())";
+		$stmt = $this->getConnection()->prepare($query);
+		$stmt->bindParam('email', $email);
+		$stmt->bindParam('password', $password);
+		return $stmt->execute();
+	}
+	
 	/*=== Get user by email ===*/
 	public function getUserByEmail($email)
 	{
