@@ -14,11 +14,20 @@ class ArticleController
 		$article = new Article();
 		$articles = $article->getAll();
 		
-		$response = ['articles' => $articles];
+		http_response_code(200);
+		header('Content-type: application/json');
+		echo json_encode($articles);
+		
+	}
+	
+	public function getById($data)
+	{
+		$id = $data[0];
+		$article = new Article();
+		$article = $article->getById($id);
 		
 		http_response_code(200);
 		header('Content-type: application/json');
-		echo json_encode($response);
-		
+		echo json_encode($article);
 	}
 }
