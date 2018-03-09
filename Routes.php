@@ -9,6 +9,7 @@ $routes->setRoute('GET', '/', 'HomepageController', 'index', []);
 
 /*=== Articles routes ===*/
 $routes->setRoute('GET', '/articles', 'ArticleController', 'index', []);
+$routes->setRoute('GET', '/articles', 'ArticleController', 'getById', ['id']);
 
 /*=== Register routes ===*/
 $routes->setRoute('GET', '/register', 'RegisterController', 'index', []);
