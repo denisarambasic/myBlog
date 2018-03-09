@@ -12,11 +12,12 @@ class HomepageController
 		$article = new Article();
 		$articles = $article->getLast3();
 		
-		$response = ['articles' => $articles];
+		//$response = ['articles' => $articles];
 		
 		http_response_code(200);
+		header('Access-Control-Allow-Origin: *');
 		header('Content-type: application/json');
-		echo json_encode($response);
+		echo json_encode($articles);
 		
 	}
 }
