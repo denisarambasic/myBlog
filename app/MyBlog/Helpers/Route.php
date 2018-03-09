@@ -40,7 +40,7 @@ class Route {
 					//check if the requested method match
 					if($requestMethod == $route['httpMethod']){
 						//check if the params count match
-						$params = substr($requestUri, strlen($temp));
+						$params = ltrim(substr($requestUri, strlen($temp)), "/");
 						$params = explode("/", $params);
 						
 						if($params[0] == ''){
