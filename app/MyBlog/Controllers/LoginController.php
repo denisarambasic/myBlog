@@ -11,6 +11,7 @@ class LoginController
 	
 	public function index()
 	{
+		header('Access-Control-Allow-Origin: *');
 		$message = ["message" => "To login and get your access_token send a post requset with your email and password"];
 		http_response_code(200);
 		header('Content-type: application/json');
@@ -19,6 +20,7 @@ class LoginController
 	
 	public function formData()
 	{
+		header('Access-Control-Allow-Origin: *');
 		$data = file_get_contents('php://input');
 		$data = json_decode($data);
 		
@@ -32,7 +34,7 @@ class LoginController
 		
 		if(!$user){
 			$error = ["error" => "Wrong credentials"];
-			http_response_code(400);
+			//http_response_code(400);
 			header('Content-type: application/json');
 			echo json_encode($error);
 			exit;
@@ -40,7 +42,7 @@ class LoginController
 		//2. check password if wrong throw error
 		if(!password_verify($password, $user['password'])){
 			$error = ["error" => "Wrong credentials"];
-			http_response_code(400);
+			//http_response_code(400);
 			header('Content-type: application/json');
 			echo json_encode($error);
 			exit;
