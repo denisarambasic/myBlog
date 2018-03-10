@@ -15,6 +15,7 @@ class ArticleController
 		$articles = $article->getAll();
 		
 		http_response_code(200);
+		header('Access-Control-Allow-Origin: *');
 		header('Content-type: application/json');
 		echo json_encode($articles);
 		
@@ -27,6 +28,7 @@ class ArticleController
 		$article = $article->getById($id);
 		
 		http_response_code(200);
+		header('Access-Control-Allow-Origin: *');
 		header('Content-type: application/json');
 		echo json_encode($article);
 	}
