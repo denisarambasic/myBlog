@@ -10,6 +10,16 @@ class Article extends BaseModel
 	private $created_at;
 	private $user_id;
 	
+	/*=== GET Articles by user_id ===*/
+	public function getByUserId($user_id){
+		$query = "SELECT articles.id, articles.title, articles.content, articles.created_at, users.email FROM articles
+					INNER JOIN users ON users.id = articles.user_id WHERE articles.user_id = :user_id";
+		$stmt = $this->getConnection()->prepare($query);
+		$stmt->bindParam('user_id', $user_id);
+		$stmt->execute();
+		return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+	}
+	
 	/*=== GET the number of rows (articles) ===*/
 	public function getArticleNumRows()
 	{
