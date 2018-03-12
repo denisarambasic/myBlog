@@ -45,4 +45,14 @@ class ArticleController
 		echo json_encode($articles);
 	}
 	
+	public function getCount()
+	{
+		$article = new Article();
+		$articles = $article->getArticleNumRows();
+		http_response_code(200);
+		header('Access-Control-Allow-Origin: *');
+		header('Content-type: application/json');
+		echo json_encode($articles);
+	}
+	
 }

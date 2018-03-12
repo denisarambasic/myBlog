@@ -10,6 +10,14 @@ class Article extends BaseModel
 	private $created_at;
 	private $user_id;
 	
+	/*=== GET the number of rows (articles) ===*/
+	public function getArticleNumRows()
+	{
+		$query = "SELECT COUNT(*) AS num_rows FROM articles";
+		$stmt = $this->getConnection()->prepare($query);
+		$stmt->execute();
+		return $stmt->fetch(\PDO::FETCH_ASSOC);
+	}
 	/*=== GET five articles per page ===*/
 	public function getPerPage($page)
 	{
