@@ -51,7 +51,7 @@ class LoginController
 		$expTime = time() + 3600; //The access_token is valid 1 hour
 		$jwt = JWT::encode([
 			"iss" => "192.168.33.10",
-			"sub" => $user['email'],
+			"sub" => $user['id'],
 			"exp" => $expTime,
 			"iat" => 1356999524,
 			"nbf" => 1357000000
