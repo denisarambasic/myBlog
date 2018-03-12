@@ -13,6 +13,9 @@ $routes->setRoute('GET', '/articles/count', 'ArticleController', 'getCount', [])
 $routes->setRoute('GET', '/articles', 'ArticleController', 'getById', ['id']);
 $routes->setRoute('GET', '/articles/page', 'ArticleController', 'getPerPage', ['pageNumber']);
 
+/*=== User article routes ===*/
+$routes->setRoute('GET', '/my-articles', 'UserController', 'index', []);
+
 /*=== Register routes ===*/
 $routes->setRoute('GET', '/register', 'RegisterController', 'index', []);
 $routes->setRoute('POST', '/register', 'RegisterController', 'formData', []);
