@@ -17,7 +17,7 @@ class Authentication
 		//2. check if token exists if not protect te resurs
 		if(!$access_token){
 			$message = ["error" => "you don't send any access_token"];
-			http_response_code(403);
+			//http_response_code(403);
 			header('Content-type: application/json');
 			echo json_encode($message);
 			exit;
@@ -30,7 +30,7 @@ class Authentication
 			return $decoded->sub;
 		}catch(\Exception $e){
 			$message = ["error" => "your access_token has expired, login again"];
-			http_response_code(403);
+			//http_response_code(403);
 			header('Content-type: application/json');
 			echo json_encode($message);
 			exit;
