@@ -34,12 +34,14 @@ class ArticleController
 	}
 	
 	public function getPerPage($data){
+
 		//get the current page number:
 		$page = $data[0];
 		$article = new Article();
 		$articles = $article->getPerPage($page);
 		
 		http_response_code(200);
+		
 		header('Access-Control-Allow-Origin: *');
 		header('Content-type: application/json');
 		echo json_encode($articles);
