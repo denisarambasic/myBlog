@@ -45,4 +45,27 @@ class UserController
 		echo json_encode($message);
 	}
 	
+	public function createArticle()
+	{
+		
+		header('Access-Control-Allow-Origin: *');
+		header('Content-type: application/json');
+		header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
+		$user_id = Authentication::requireAuth();
+		$data = file_get_contents('php://input');
+		$data = json_decode($data);
+		
+		//filter input 
+		$title = filter_var($data->title, FILTER_SANITIZE_STRING);
+		$content = filter_var($data->content, FILTER_SANITIZE_STRING);
+		
+		$article = new Article();
+		$article->createArticle($title, $content, $user_id);
+		
+		http_response_code(201);		
+		$message = ["message" => "A new article was created"];
+		echo json_encode($message);
+		
+	}
+	
 }

@@ -10,6 +10,17 @@ class Article extends BaseModel
 	private $created_at;
 	private $user_id;
 	
+	/*=== Create a new Article ===*/
+	public function createArticle($title, $content, $user_id)
+	{
+		$query = "INSERT INTO articles VALUES (NULL, :title, :content, NOW(), :user_id)";
+		$stmt = $this->getConnection()->prepare($query);
+		$stmt->bindParam('title', $title);
+		$stmt->bindParam('content', $content);
+		$stmt->bindParam('user_id', $user_id);
+		return $stmt->execute();
+	}
+	
 	/*=== GET Articles by user_id ===*/
 	public function getByUserId($user_id){
 		$query = "SELECT articles.id, articles.title, articles.content, articles.created_at, users.email FROM articles
