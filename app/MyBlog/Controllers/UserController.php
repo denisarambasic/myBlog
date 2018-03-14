@@ -36,4 +36,13 @@ class UserController
 		echo json_encode(['user_id'=>$user_id]);
 	}
 	
+	public function createArticleInfo()
+	{		
+		http_response_code(200);
+		header('Access-Control-Allow-Origin: *');
+		header('Content-type: application/json');
+		$message = ["message" => "To create a new article you need to be logged in and send a post req with params ['title', 'content']"];
+		echo json_encode($message);
+	}
+	
 }
