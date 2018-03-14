@@ -16,6 +16,7 @@ $routes->setRoute('GET', '/articles/page', 'ArticleController', 'getPerPage', ['
 /*=== User article routes ===*/
 $routes->setRoute('GET', '/my-articles', 'UserController', 'index', []);
 $routes->setRoute('GET', '/my-articles/create', 'UserController', 'createArticleInfo', []);
+$routes->setRoute('POST', '/my-articles/create', 'UserController', 'createArticle', []);
 $routes->setRoute('OPTIONS', '/my-articles', 'UserController', 'index', []);
 $routes->setRoute('GET', '/check-user', 'UserController', 'checkUser', []);
 $routes->setRoute('OPTIONS', '/check-user', 'UserController', 'checkUser', []);
