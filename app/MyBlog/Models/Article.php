@@ -10,6 +10,16 @@ class Article extends BaseModel
 	private $created_at;
 	private $user_id;
 	
+	/*=== Update article ===*/
+	public function updateArticle($article_id, $title, $content){
+		$query = "UPDATE articles SET title= :title, content= :content WHERE id = :article_id";
+		$stmt = $this->getConnection()->prepare($query);
+		$stmt->bindParam('title', $title);
+		$stmt->bindParam('content', $content);
+		$stmt->bindParam('article_id', $article_id);
+		return $stmt->execute();
+	}
+	
 	/*=== Delete article by id ===*/
 	public function deleteArticle($article_id)
 	{

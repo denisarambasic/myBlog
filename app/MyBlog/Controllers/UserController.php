@@ -95,4 +95,40 @@ class UserController
 		exit;
 	}
 	
+	public function updateArticle($data)
+	{
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Methods: PUT');
+		header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
+		//1.get the user_id of the current user
+		$user_id = Authentication::requireAuth();
+		$article_id = $data[0];
+		
+		//check if the article belongs to the current user
+		$article = new Article();
+
+		$article_owner = $article->isOwner($article_id, $user_id);
+		//if the article dont belongs to the user stop script
+		if(!$article_owner['is_owner']){
+			$message = ["error" => "You have no permission"];
+			echo json_encode($message);
+			exit;
+		}
+		
+		//if the article belongs to the current user update it
+		
+		$data = file_get_contents('php://input');
+		$data = json_decode($data);
+		
+		//filter input 
+		$article_id = filter_var($data->id, FILTER_SANITIZE_NUMBER_INT);
+		$title = filter_var($data->title, FILTER_SANITIZE_STRING);
+		$content = filter_var($data->content, FILTER_SANITIZE_STRING);
+
+		$article->updateArticle($article_id, $title, $content);
+		$message = ["success" => "Article updated"];
+		echo json_encode($message);
+		exit;
+	}
+	
 }
