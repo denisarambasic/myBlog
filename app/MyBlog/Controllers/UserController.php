@@ -68,4 +68,31 @@ class UserController
 		
 	}
 	
+	public function deleteArticle($data)
+	{
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Methods: DELETE');
+		header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Authorization');
+		//1.get the user_id of the current user
+		$user_id = Authentication::requireAuth();
+		$article_id = $data[0];
+		
+		//check if the article belongs to the current user
+		$article = new Article();
+
+		$article_owner = $article->isOwner($article_id, $user_id);
+		//if the article dont belongs to the user stop script
+		if(!$article_owner['is_owner']){
+			$message = ["error" => "You have no permission"];
+			echo json_encode($message);
+			exit;
+		}
+		
+		//if the article belongs to the current user delete it from the DB
+		$article->deleteArticle($article_id);
+		$message = ["success" => "Article deleted"];
+		echo json_encode($message);
+		exit;
+	}
+	
 }
