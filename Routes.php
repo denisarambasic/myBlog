@@ -21,6 +21,9 @@ $routes->setRoute('OPTIONS', '/my-articles/create', 'UserController', 'createArt
 $routes->setRoute('DELETE', '/my-articles/delete', 'UserController', 'deleteArticle', ['id']);
 $routes->setRoute('OPTIONS', '/my-articles/delete', 'UserController', 'deleteArticle', ['id']);
 
+$routes->setRoute('PUT', '/my-articles/update', 'UserController', 'updateArticle', ['id']);
+$routes->setRoute('OPTIONS', '/my-articles/update', 'UserController', 'updateArticle', ['id']);
+
 $routes->setRoute('OPTIONS', '/my-articles', 'UserController', 'index', []);
 $routes->setRoute('GET', '/check-user', 'UserController', 'checkUser', []);
 $routes->setRoute('OPTIONS', '/check-user', 'UserController', 'checkUser', []);
