@@ -10,6 +10,17 @@ class Article extends BaseModel
 	private $created_at;
 	private $user_id;
 	
+	/*=== Check if the logged in user is the owner of an article ===*/
+	public function isOwner($article_id, $user_id)
+	{
+		$query = "SELECT COUNT(*) AS is_owner FROM articles WHERE id = :article_id AND user_id = :user_id";
+		$stmt = $this->getConnection()->prepare($query);
+		$stmt->bindParam('article_id', $article_id);
+		$stmt->bindParam('user_id', $user_id);
+		$stmt->execute();
+		return $stmt->fetch(\PDO::FETCH_ASSOC);
+	}
+	
 	/*=== Create a new Article ===*/
 	public function createArticle($title, $content, $user_id)
 	{
