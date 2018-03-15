@@ -10,6 +10,15 @@ class Article extends BaseModel
 	private $created_at;
 	private $user_id;
 	
+	/*=== Delete article by id ===*/
+	public function deleteArticle($article_id)
+	{
+		$query = "DELETE FROM articles WHERE id = :article_id";
+		$stmt = $this->getConnection()->prepare($query);
+		$stmt->bindParam('article_id', $article_id);
+		return $stmt->execute();
+	}
+	
 	/*=== Check if the logged in user is the owner of an article ===*/
 	public function isOwner($article_id, $user_id)
 	{
