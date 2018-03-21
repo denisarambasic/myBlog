@@ -11,11 +11,13 @@ class Article extends BaseModel
 	private $user_id;
 	
 	/*=== Update article ===*/
-	public function updateArticle($article_id, $title, $content){
-		$query = "UPDATE articles SET title= :title, content= :content WHERE id = :article_id";
+	public function updateArticle($article_id, $title, $content, $lat, $lng){
+		$query = "UPDATE articles SET title= :title, content= :content, lat= :lat, lng= :lng WHERE id = :article_id";
 		$stmt = $this->getConnection()->prepare($query);
 		$stmt->bindParam('title', $title);
 		$stmt->bindParam('content', $content);
+		$stmt->bindParam('lat', $lat);
+		$stmt->bindParam('lng', $lng);
 		$stmt->bindParam('article_id', $article_id);
 		return $stmt->execute();
 	}
@@ -41,19 +43,25 @@ class Article extends BaseModel
 	}
 	
 	/*=== Create a new Article ===*/
-	public function createArticle($title, $content, $user_id)
+	public function createArticle($title, $content, $user_id, $lat, $lng)
 	{
-		$query = "INSERT INTO articles VALUES (NULL, :title, :content, NOW(), :user_id)";
+		$query = "INSERT INTO articles VALUES (NULL, :title, :content, NOW(), :user_id, :lat, :lng)";
 		$stmt = $this->getConnection()->prepare($query);
 		$stmt->bindParam('title', $title);
 		$stmt->bindParam('content', $content);
 		$stmt->bindParam('user_id', $user_id);
-		return $stmt->execute();
+		$stmt->bindParam('lat', $lat);
+		$stmt->bindParam('lng', $lng);
+		try{
+			$stmt->execute();			
+		}catch(\Exception $e){
+			echo $e->getMessage();
+		}
 	}
 	
 	/*=== GET Articles by user_id ===*/
 	public function getByUserId($user_id){
-		$query = "SELECT articles.id, articles.title, articles.content, articles.created_at, users.email FROM articles
+		$query = "SELECT articles.id, articles.title, articles.content, articles.lat, articles.lng, articles.created_at, users.email FROM articles
 					INNER JOIN users ON users.id = articles.user_id WHERE articles.user_id = :user_id";
 		$stmt = $this->getConnection()->prepare($query);
 		$stmt->bindParam('user_id', $user_id);
@@ -83,7 +91,7 @@ class Article extends BaseModel
 	
 	/*=== GET Article by id ===*/
 	public function getById($id){
-		$query = "SELECT articles.id, articles.title, articles.content, articles.created_at, users.email FROM articles
+		$query = "SELECT articles.id, articles.title, articles.content, articles.lat, articles.lng, articles.created_at, users.email FROM articles
 					INNER JOIN users ON users.id = articles.user_id WHERE articles.id = :id";
 		$stmt = $this->getConnection()->prepare($query);
 		$stmt->bindParam('id', $id);

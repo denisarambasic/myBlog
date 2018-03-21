@@ -41,7 +41,7 @@ class UserController
 		http_response_code(200);
 		header('Access-Control-Allow-Origin: *');
 		header('Content-type: application/json');
-		$message = ["message" => "To create a new article you need to be logged in and send a post req with params ['title', 'content']"];
+		$message = ["message" => "To create a new article you need to be logged in and send a post req with params ['title', 'content', 'lat', 'lng']"];
 		echo json_encode($message);
 	}
 	
@@ -54,13 +54,16 @@ class UserController
 		$user_id = Authentication::requireAuth();
 		$data = file_get_contents('php://input');
 		$data = json_decode($data);
-		
 		//filter input 
 		$title = filter_var($data->title, FILTER_SANITIZE_STRING);
 		$content = filter_var($data->content, FILTER_SANITIZE_STRING);
 		
+		/*== Latitude and longitude for google map ==*/
+		$lat = filter_var($data->lat, FILTER_VALIDATE_FLOAT);
+		$lng = filter_var($data->lng, FILTER_VALIDATE_FLOAT);
+		
 		$article = new Article();
-		$article->createArticle($title, $content, $user_id);
+		$article->createArticle($title, $content, $user_id, $lat, $lng);
 		
 		http_response_code(201);		
 		$message = ["message" => "A new article was created"];
@@ -124,8 +127,12 @@ class UserController
 		$article_id = filter_var($data->id, FILTER_SANITIZE_NUMBER_INT);
 		$title = filter_var($data->title, FILTER_SANITIZE_STRING);
 		$content = filter_var($data->content, FILTER_SANITIZE_STRING);
+		
+		/*== Latitude and longitude for google map ==*/
+		$lat = filter_var($data->lat, FILTER_VALIDATE_FLOAT);
+		$lng = filter_var($data->lng, FILTER_VALIDATE_FLOAT);
 
-		$article->updateArticle($article_id, $title, $content);
+		$article->updateArticle($article_id, $title, $content, $lat, $lng);
 		$message = ["success" => "Article updated"];
 		echo json_encode($message);
 		exit;
